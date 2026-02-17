@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story 💕</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Audio Player untuk 3 Lagu -->
+    <audio id="bgMusic" loop preload="auto"></audio>
+
+    <!-- Modern Music Player -->
+    <div class="music-player-modern">
+        <div class="album-art">
+            <img src="foto1.jpg" alt="Album" id="albumArt" onerror="this.src='foto1.jpg'">
+            <div class="vinyl-overlay"></div>
+        </div>
+        <div class="player-info">
+            <div class="song-title" id="currentSongTitle">Bergema Sampai Selamanya</div>
+            <div class="artist-name" id="currentArtist">Nadhif Basalamah</div>
+            <div class="time-indicator">
+                <span id="currentTime">2:25</span>
+                <span id="duration">-3:18</span>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button class="control-btn" onclick="toggleMusic()">
+                <i class="fas fa-play" id="playIcon"></i>
+            </button>
+            <div class="volume-slider">
+                <i class="fas fa-volume-up" id="volumeIcon"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+            </div>
+        </div>
+        <div class="playlist-dropdown">
+            <button class="playlist-btn" onclick="togglePlaylistMenu()">
+                <i class="fas fa-music"></i>
+                <span>Playlist</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="playlist-menu" id="playlistMenu">
+                <div class="playlist-item" onclick="selectSong(0, 'sempurna.mp3', 'Sempurna', 'Andra & The Backbone')">
+                    <i class="fas fa-play-circle"></i>
+                    <div class="song-info">
+                        <span class="song-name">Sempurna</span>
+                        <span class="song-artist">Andra & The Backbone</span>
+                    </div>
+                </div>
+                <div class="playlist-item active" onclick="selectSong(1, 'bergema.mp3', 'Bergema Sampai Selamanya', 'Nadhif Basalamah')">
+                    <i class="fas fa-play-circle"></i>
+                    <div class="song-info">
+                        <span class="song-name">Bergema Sampai Selamanya</span>
+                        <span class="song-artist">Nadhif Basalamah</span>
+                    </div>
+                </div>
+                <div class="playlist-item" onclick="selectSong(2, 'jadikekasihku.mp3', 'Jadi Kekasihku Saja', 'Keisya Levronka')">
+                    <i class="fas fa-play-circle"></i>
+                    <div class="song-info">
+                        <span class="song-name">Jadi Kekasihku Saja</span>
+                        <span class="song-artist">Keisya Levronka</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="waveform" id="waveform">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-actions">
+        <button class="fab-btn" onclick="showLoveMessage()" style="--i:1" title="Kirim Pesan Cinta">
+            <i class="fas fa-heart"></i>
+        </button>
+        <button class="fab-btn" onclick="togglePlaylist()" style="--i:2" title="Playlist">
+            <i class="fas fa-music"></i>
+        </button>
+        <button class="fab-btn" onclick="countdownToDate()" style="--i:3" title="Countdown">
+            <i class="fas fa-clock"></i>
+        </button>
+        <button class="fab-btn" onclick="scrollToTop()" style="--i:4" title="Ke Atas">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Playlist Modal -->
+    <div id="playlistModal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-modal" onclick="closePlaylist()">&times;</span>
+            <h2 class="modal-title">🎵 Playlist Cinta Kita</h2>
+            <div class="playlist">
+                <div class="song-item" onclick="playSong('sempurna.mp3')">
+                    <div class="song-number">01</div>
+                    <div class="song-info">
+                        <div class="song-name">Sempurna</div>
+                        <div class="song-artist">Andra & The Backbone</div>
+                    </div>
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="song-item" onclick="playSong('bergema.mp3')">
+                    <div class="song-number">02</div>
+                    <div class="song-info">
+                        <div class="song-name">Bergema Sampai Selamanya</div>
+                        <div class="song-artist">Nadhif Basalamah</div>
+                    </div>
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="song-item" onclick="playSong('jadikekasihku.mp3')">
+                    <div class="song-number">03</div>
+                    <div class="song-info">
+                        <div class="song-name">Jadi Kekasihku Saja</div>
+                        <div class="song-artist">Keisya Levronka</div>
+                    </div>
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container dengan Scroll -->
+    <div class="scroll-container">
+        
+        <!-- SECTION 1: WELCOME -->
+        <section class="section welcome-section" id="welcome">
+            <div class="modern-panel">
+                <div class="panel-glow"></div>
+                <div class="panel-content">
+                    <div class="welcome-tag">✦ SELAMAT DATANG ✦</div>
+                    <h1 class="modern-title">
+                        <span class="title-line">WELCOME TO</span>
+                        <span class="title-highlight">OUR WEBSITE</span>
+                    </h1>
+                    <p class="modern-subtitle">Tempat menyimpan semua kenangan indah kita</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-heart"></i>
+                            <span class="stat-number" id="totalLikesWelcome">100%</span>
+                            <span class="stat-label">Total Cinta</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-camera"></i>
+                            <span class="stat-number" id="totalPhotos">18</span>
+                            <span class="stat-label">Kenangan</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <span class="stat-number" id="daysTogether">72</span>
+                            <span class="stat-label">Hari</span>
+                        </div>
+                    </div>
+
+                    <div class="couple-avatar">
+                        <div class="avatar-item">
+                            <i class="fas fa-female"></i>
+                            <span>You</span>
+                        </div>
+                        <div class="avatar-heart">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="avatar-item">
+                            <i class="fas fa-male"></i>
+                            <span>Me</span>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Icons -->
+                    <div class="social-media">
+                        <h3 class="social-title">Sosial Media Kita</h3>
+                        <div class="social-icons">
+                            <!-- TikTok Cewe -->
+                            <a href="https://www.tiktok.com/@shl22x?_r=1&_t=ZS-93uUmWjIPcy" target="_blank" class="social-icon tiktok">
+                                <i class="fab fa-tiktok"></i>
+                                <span>@shl22x</span>
+                            </a>
+                            <!-- TikTok Cowo -->
+                            <a href="https://www.tiktok.com/@grnslv_?_r=1&_t=ZS-93uUpMrl6PM" target="_blank" class="social-icon tiktok">
+                                <i class="fab fa-tiktok"></i>
+                                <span>@grnslv_</span>
+                            </a>
+                            <!-- Instagram Cewe -->
+                            <a href="https://www.instagram.com/grnslv_?igsh=MWtvM3ZrNHhhaXhwbg==" target="_blank" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>@grnslv_</span>
+                            </a>
+                            <!-- Instagram Cowo -->
+                            <a href="https://www.instagram.com/378sl_?igsh=dm9hNW80NXlpYXdq" target="_blank" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>@378sl_</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TENTANG KITA -->
+        <section class="section about-section" id="about">
+            <div class="aesthetic-panel">
+                <div class="panel-pattern"></div>
+                <div class="panel-content">
+                    <div class="section-tag">───  TENTANG KITA  ───</div>
+                    
+                    <div class="story-grid">
+                        <div class="story-card fade-in">
+                            <div class="story-icon">💫</div>
+                            <h3>Awal Mula</h3>
+                            <p>Berawal dari percakapan sederhana<br>yang perlahan berubah jadi rasa</p>
+                        </div>
+                        
+                        <div class="story-card fade-in delay-1">
+                            <div class="story-icon">✨</div>
+                            <h3>Perjalanan</h3>
+                            <p>Tidak ada yang dipaksakan<br>semuanya berjalan apa adanya</p>
+                        </div>
+                        
+                        <div class="story-card fade-in delay-2 highlight-card">
+                            <div class="story-icon">💕</div>
+                            <h3>Hari Spesial</h3>
+                            <p class="special-date">5 Desember 2025</p>
+                            <p>kita sepakat untuk melangkah<br>lebih dari sekadar teman</p>
+                        </div>
+                        
+                        <div class="story-card fade-in delay-3">
+                            <div class="story-icon">🤍</div>
+                            <h3>Janji Kita</h3>
+                            <p>Bukan keputusan terburu-buru<br>tapi pilihan yang sama-sama kita yakini</p>
+                        </div>
+                    </div>
+
+                    <div class="poem-box">
+                        <p class="poem-text">
+                            "Karena sejak hari itu,<br>
+                            <span class="poem-highlight">rumahku ada di kamu</span>"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Galeri</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GALERY KITA -->
+        <section class="section gallery-section" id="gallery">
+            <div class="gallery-header">
+                <h2 class="gallery-title">
+                    <span class="title-decoration">📸</span>
+                    GALERY KITA
+                    <span class="title-decoration">📸</span>
+                </h2>
+                <p class="gallery-subtitle" id="gallerySubtitle">18 kenangan indah yang telah kita lalui bersama</p>
+            </div>
+            
+            <div class="instagram-container">
+                <!-- Stories - SATU STORIES SAJA berisi semua foto -->
+                <div class="stories-wrapper">
+                    <div class="single-story" onclick="openSingleStory()">
+                        <div class="story-preview">
+                            <img src="foto1.jpg" alt="Story" id="storyPreview" onerror="this.src='foto1.jpg'">
+                            <div class="story-overlay">
+                                <i class="fas fa-play"></i>
+                                <span>18 Kenangan</span>
+                            </div>
+                        </div>
+                        <span class="story-label">Kita 💕</span>
+                    </div>
+                </div>
+
+                <!-- Instagram Feed -->
+                <div class="instagram-feed" id="instagramFeed"></div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="load-more-btn" onclick="loadMorePosts()">
+                        <i class="fas fa-heart"></i>
+                        Tampilkan Lebih Banyak
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Love Message Modal -->
+    <div id="loveMessageModal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-modal" onclick="closeLoveMessage()">&times;</span>
+            <h2 class="modal-title">💌 Kirim Pesan Cinta</h2>
+            <form id="loveMessageForm" onsubmit="sendLoveMessage(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Nama Kamu" id="senderName" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Tulis pesan cinta..." id="messageText" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Kirim
+                </button>
+            </form>
+            <div class="messages-container" id="loveMessages"></div>
+        </div>
+    </div>
+
+    <!-- Countdown Modal -->
+    <div id="countdownModal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-modal" onclick="closeCountdown()">&times;</span>
+            <h2 class="modal-title">⏰ Countdown Spesial</h2>
+            <div class="countdown-modern">
+                <div class="countdown-item">
+                    <span id="days">00</span>
+                    <span>Hari</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">00</span>
+                    <span>Jam</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">00</span>
+                    <span>Menit</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">00</span>
+                    <span>Detik</span>
+                </div>
+            </div>
+            <input type="date" id="targetDate" class="date-input" value="2025-12-05">
+            <button class="set-btn" onclick="startCountdown()">Set Target</button>
+        </div>
+    </div>
+
+    <!-- Lightbox untuk Stories -->
+    <div id="storyLightbox" class="story-lightbox" onclick="closeStory()">
+        <span class="close-lightbox">&times;</span>
+        <div class="story-container">
+            <img class="story-content" id="storyImg">
+            <div class="story-progress" id="storyProgress"></div>
+            <div class="story-nav">
+                <a class="story-prev" onclick="prevStory(); event.stopPropagation()">❮</a>
+                <a class="story-next" onclick="nextStory(); event.stopPropagation()">❯</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox untuk Post -->
+    <div id="postLightbox" class="lightbox" onclick="closePostLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+        <div class="lightbox-nav">
+            <a class="lightbox-prev" onclick="changePostLightbox(-1); event.stopPropagation()">❮</a>
+            <a class="lightbox-next" onclick="changePostLightbox(1); event.stopPropagation()">❯</a>
+        </div>
+    </div>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
