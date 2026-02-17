@@ -3,7 +3,7 @@
 Website spesial untuk menyimpan kenangan indah kita berdua.
 
 ## 🌟 Fitur
-- 📸 19 Foto kenangan
+- 📸 21 Foto kenangan
 - 🎵 3 Lagu spesial: Sempurna, Bergema, Jadi Kekasihku Saja
 - 📖 Cerita perjalanan cinta
 - ⏰ Stories seperti Instagram
