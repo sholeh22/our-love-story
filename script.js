@@ -33,7 +33,8 @@ const photos = [
     'foto7.jpg', 'foto8.jpg', 'foto9.jpg',
     'foto10.jpg', 'foto11.jpg', 'foto12.jpg',
     'foto13.jpg', 'foto14.jpg', 'foto15.jpg',
-    'foto16.jpg', 'foto17.jpg', 'foto18.jpg'
+    'foto16.jpg', 'foto17.jpg', 'foto18.jpg',
+    'foto19.jpg', 'foto20.jpg', 'foto21.jpg'
 ];
 
 // Captions (18 captions)
@@ -55,7 +56,10 @@ const captions = [
     "Lamar gacoan 🍜",
     "photo after playing football ⚽",
     "Masih sama ⚽",
-    "Football lagi ⚽"
+    "Football lagi ⚽",
+    "Cuplee 💙💙",
+    "Adalah pokoknya 😝",
+    "Ora eling 😭"
 ];
 
 // ============= MUSIC CONTROL =============
