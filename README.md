@@ -13,7 +13,7 @@ Website spesial untuk menyimpan kenangan indah kita berdua.
 
 1. Fork repository ini
 2. Enable GitHub Pages di Settings
-3. Akses di `https://username.github.io/galeri-cinta-kita`
+3. Akses di `https://username.github.io/our-love-story`
 
 ## 🎵 Playlist
 - Sempurna - Andra & The Backbone
