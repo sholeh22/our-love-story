@@ -25,7 +25,3 @@ Website spesial untuk menyimpan kenangan indah kita berdua.
 
 ## 💕 Untuk Kita Berdua
 Dibuat dengan cinta pada 17 Februari 2026
-
-## 📞 Kontak
-- TikTok: [@shl22x](https://tiktok.com/@shl22x) | [@grnslv_](https://tiktok.com/@grnslv_)
-- Instagram: [@grnslv_](https://instagram.com/grnslv_) | [@378sl_](https://instagram.com/378sl_)
